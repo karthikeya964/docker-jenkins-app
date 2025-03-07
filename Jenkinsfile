@@ -67,12 +67,13 @@ pipeline {
             steps {
                 script {
                     sh """
-                        sshpass -p "root" ssh -o StrictHostKeyChecking=no master@192.168.203.128 << EOF
-                        docker pull ${DOCKER_REPO}:${DOCKER_TAG}
-                        docker ps -a -q --filter name=${CONTAINER_NAME1} | xargs -r docker stop || true
-                        docker ps -a -q --filter name=${CONTAINER_NAME1} | xargs -r docker rm || true
-                        docker run -d -p 80:80 --name ${CONTAINER_NAME1} ${DOCKER_REPO}:${DOCKER_TAG}
-                        EOF
+                        sshpass -p "root" ssh -o StrictHostKeyChecking=no master@192.168.203.128 << "EOF"
+docker pull karthik449/my-jenkins-app:latest
+docker ps -a -q --filter name=mycontainer2 | xargs -r docker stop || true
+docker ps -a -q --filter name=mycontainer2 | xargs -r docker rm || true
+docker run -d -p 80:80 --name mycontainer2 karthik449/my-jenkins-app:latest
+EOF
+
                     """
                 }
             }
