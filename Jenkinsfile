@@ -36,13 +36,10 @@ pipeline {
 
             steps {
 
-                script {
+              script {
+    sh "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD"
+}
 
-                    docker.withRegistry('https://index.docker.io/v1/', DOCKER_CREDENTIALS_ID) {
-
-                        echo "Logged into Docker Hub"
-
-                    }
 
                 }
 
